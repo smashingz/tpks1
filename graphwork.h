@@ -63,7 +63,7 @@ matr read_mi(char *file_in) {
 }
 
 matr get_ms(matr *mi) {
-	int i,j;
+	int i,j, ji;
 	int y=mi->y;
 	int x=mi->x;
 	int pos_1, pos_2;
@@ -73,12 +73,12 @@ matr get_ms(matr *mi) {
 	ms.a=calloc(x,sizeof(char));
 	ms.x=ms.y=mi->x;
 	for(i=0;i<y;i++) {
-		for(j=0;j<x;j++) {
+		for(j=0, ji=x-1;j<x;j++, ji--) {
 			dbl=mi->a[i]&(0x3<<j*2);
 			dbl>>=j*2;
 			if(dbl==ONE) {
 				is_ONE=1;
-				pos_1=j;
+				pos_1=ji;
 				int jj;
 				int dbl;
 				for(jj=0;jj<x;jj++) {
