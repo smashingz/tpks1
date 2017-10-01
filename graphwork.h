@@ -14,7 +14,7 @@ typedef struct bit_matrix {
 matr read_mi(char *file_in);
 matr get_ms(matr *mi);
 int write_matr(matr *in, char *file_out);
-int check_file(char *fname);
+int check_file(char *fname, char m_type, int x);
 
 matr read_mi(char *file_in) {
 	FILE *in=fopen(file_in, "r");
@@ -92,14 +92,14 @@ matr get_ms(matr *mi) {
 					dbl=0;
 				}
 				if(!is_M_ONE) {
-					printf("Ошибка в матрице инцидентности: отсутствует конец дуги. Строка %d\n", i);
+					printf("Ошибка в матрице инцидентности: отсутствует конец дуги. Строка %d\n", i+1);
 					exit(1);
 				}
 			}
 		}
 		is_M_ONE=0;
 		if(!is_ONE) {
-			printf("Ошибка в матрице инцидентности: отсутствует начало дуги. Строка %d\n", i);
+			printf("Ошибка в матрице инцидентности: отсутствует начало дуги. Строка %d\n", i+1);
 			exit(1);
 		}
 		is_ONE=0;
@@ -114,13 +114,29 @@ int write_matr(matr *in, char *file_out) {
 	return 0;
 }
 
-int check_file(char *fname) {
+int check_file(char *fname, char m_type, int x) {
 	FILE *in=fopen(fname, "rb");
-	int buff;
-	while (fread(&buff, sizeof(int), 1, in)) {
-		printf("%x ", buff);
-	}
+	int buff, i, j;
+	printf("  ");
+	for(i=1;i<x+1;i++)
+		printf("%d ",i);
 	printf("\n");
+	for(i=1;i<x+1;i++)
+		printf("--");
+	printf("-");
+	printf("\n");
+	j=1;
+	while (fread(&buff, sizeof(int), 1, in)) {
+		printf("%d|", j);
+		for(i=x-1;i>=0;i--)
+			if (m_type=='a')
+				printf("%d ", (buff&(1<<i))>>i);
+			else
+				printf("%d ", (buff&(3<<i*2))>>i*2);
+		printf("[0x%x]", buff);
+		printf("\n");
+		j++;
+	}
 	fclose(in);
 	return 0;
 }

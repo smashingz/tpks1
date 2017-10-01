@@ -13,10 +13,13 @@ int main(int argc, char **argv) {
 	strcat(mi_outfile, ".im");
 	strcat(ms_outfile, ".am");
 	mi=read_mi(infile);
-	ms=get_ms(&mi);
 	write_matr(&mi, mi_outfile);
-	check_file(mi_outfile);
+	printf("Матрица инцидентности:\n");
+	check_file(mi_outfile, 'i', mi.x);
+	printf("\n");
+	ms=get_ms(&mi);
 	write_matr(&ms, ms_outfile);
-	check_file(ms_outfile);
+	printf("Матрица смежности:\n");
+	check_file(ms_outfile, 'a', ms.x);
 	return 0;
 }
