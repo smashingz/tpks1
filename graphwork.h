@@ -75,6 +75,8 @@ matr get_ms(matr *mi) {
 	int dbl;
 	matr ms;
 	ms.a=calloc(x,sizeof(char));
+	for(i=0;i<y;i++)
+		ms.a[i]=0;
 	ms.x=ms.y=mi->x;
 	for(i=0;i<y;i++) {
 		for(j=0, ji=x-1;j<x;j++, ji--) {
@@ -123,20 +125,20 @@ int check_file(char *fname, char m_type, int x) {
 	int buff, i, j;
 	printf("  ");
 	for(i=1;i<x+1;i++)
-		printf("%d ",i);
+		printf(" %02d",i);
 	printf("\n");
 	for(i=1;i<x+1;i++)
-		printf("--");
-	printf("-");
+		printf("---");
+	printf("--");
 	printf("\n");
 	j=1;
 	while (fread(&buff, sizeof(int), 1, in)) {
-		printf("%d|", j);
+		printf("%02d|", j);
 		for(i=x-1;i>=0;i--)
 			if (m_type=='a')
-				printf("%d ", (buff&(1<<i))>>i);
+				printf("%d  ", (buff&(1<<i))>>i);
 			else
-				printf("%d ", (buff&(3<<i*2))>>i*2);
+				printf("%d  ", (buff&(3<<i*2))>>i*2);
 		printf("[0x%x]", buff);
 		printf("\n");
 		j++;
