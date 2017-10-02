@@ -112,7 +112,7 @@ matr get_ms(matr *mi) {
 }
 
 int write_matr(matr *in, char *file_out) {
-	FILE *out=fopen(file_out, "w+b");
+	FILE *out=fopen(file_out, "wb");
 	fwrite(in->a,sizeof(int),in->y,out);
 	fclose(out);
 	return 0;
