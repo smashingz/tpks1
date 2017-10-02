@@ -1,5 +1,6 @@
 /*Вариант №1*/
 #include "graphwork.h"
+#include "matgen.h"
 #include <string.h>
 
 int main(int argc, char **argv) {
@@ -12,13 +13,15 @@ int main(int argc, char **argv) {
 	strcpy(ms_outfile, infile);
 	strcat(mi_outfile, ".im");
 	strcat(ms_outfile, ".am");
+	/*Генерация матрицы в файле*/
+	create_inc_matr(infile, 10, 10);
 	mi=read_mi(infile);
 	write_matr(&mi, mi_outfile);
 	printf("Матрица инцидентности:\n");
 	check_file(mi_outfile, 'i', mi.x);
 	printf("\n");
 	ms=get_ms(&mi);
-	write_matr(&ms, ms_outfile);
+	write_matr(&ms, ms_outfile); /*Какая-то херня*/
 	printf("Матрица смежности:\n");
 	check_file(ms_outfile, 'a', ms.x);
 	return 0;

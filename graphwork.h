@@ -27,9 +27,13 @@ matr read_mi(char *file_in) {
 		exit(1);
 	}
 	/*Получение размеров матрицы из файла*/
-		mi.y=y=getc(in)-'0'; 
-		mi.x=x=getc(in)-'0'; 
-		getc(in);
+		fscanf(in, "%d %d\n", &mi.y, &mi.x);
+		y=mi.y;
+		x=mi.x;
+		if(x>16) {
+			printf("Количество обрабатываемых вершин не может быть больше 16\n");
+			exit(1);
+		}
 	/*Выделение пространства на матрицу*/
 		mi.a=calloc(y,sizeof(int)); 
 		for(i=0; i<y;i++) 
@@ -108,7 +112,7 @@ matr get_ms(matr *mi) {
 }
 
 int write_matr(matr *in, char *file_out) {
-	FILE *out=fopen(file_out, "wb");
+	FILE *out=fopen(file_out, "w+b");
 	fwrite(in->a,sizeof(int),in->y,out);
 	fclose(out);
 	return 0;

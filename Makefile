@@ -1,4 +1,4 @@
 .PHOHY: all
 
-all: main.c graphwork.h
+all: 
 	gcc -Wall -g -o programm main.c 
