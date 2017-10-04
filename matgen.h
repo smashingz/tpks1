@@ -7,7 +7,7 @@ int arr_cmp(int size, int *a, int *b);
 
 int create_inc_matr(char *file, int x, int y) {
 	int i,j,one_pos,two_pos;
-	int **buff;
+	int *buff[y];
 	FILE *in=fopen(file, "w");
 	for(i=0;i<y;i++) {
 		buff[i]=calloc(x,sizeof(int));
@@ -21,7 +21,6 @@ int create_inc_matr(char *file, int x, int y) {
 			two_pos=rand()%x;
 		buff[i][one_pos]=1;
 		buff[i][two_pos]=2;
-		buff[one_pos]=buff[two_pos]=0;
 	}
 /*Удаление в матрице повторяющихся строк*/
 	y=rm_repeat_str(buff, y, x);
@@ -32,17 +31,19 @@ int create_inc_matr(char *file, int x, int y) {
 			fprintf(in, "%d", buff[i][j]);
 		fprintf(in, "\n");
 	}
-	free(buff);
+	for(i=0;i<y;i++)
+		free(buff[i]);
 	fclose(in);
 	return 0;
 }
+
 int rm_repeat_str(int **buff, int y, int x) {	
 	int i, j, k;
 	for(i=0;i<y;i++)
 		for(j=i+1;j<y;j++)
 			if(arr_cmp(x, buff[i], buff[j])) {
-				for(k=0;k<y-1;k++)
-					buff[j]=buff[j+1];
+				for(k=j;k<y-1;k++)
+					buff[k]=buff[k+1];
 				y--;
 			}
 	return y;
