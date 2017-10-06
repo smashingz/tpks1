@@ -74,9 +74,9 @@ matr get_ms(matr *mi) {
 	char is_ONE=0, is_M_ONE=0;
 	int dbl;
 	matr ms;
-	ms.a=calloc(x,sizeof(char));
+	ms.a=calloc(y,sizeof(char));
 	for(i=0;i<y;i++)
-		ms.a[i]=0;
+		ms.a[i]=0;/*TODO Возможно здесь косяк: проблема в инициализации нулями*/
 	ms.x=ms.y=mi->x;
 	for(i=0;i<y;i++) {
 		for(j=0, ji=x-1;j<x;j++, ji--) {

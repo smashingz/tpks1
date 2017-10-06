@@ -26,7 +26,7 @@ int create_inc_matr(char *file, int x, int y) {
 	y=rm_repeat_str(buff, y, x);
 /*Запись матрицы в файл*/
 	fprintf(in, "%d %d\n", y, x);
-	for(i=0;i<x;i++) {
+	for(i=0;i<y;i++) {
 		for(j=0;j<x;j++)
 			fprintf(in, "%d", buff[i][j]);
 		fprintf(in, "\n");

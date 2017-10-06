@@ -1,4 +1,4 @@
 .PHOHY: all
 
 all: 
-	gcc -Wall -g -o programm main.c 
+	gcc -m32 -Wall -g -o programm main.c 
