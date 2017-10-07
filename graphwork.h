@@ -59,9 +59,6 @@ matr read_mi(char *file_in) {
 			}
 		}
 	fclose(in);
-	/* Обязательно освободить память.
-	Иначе следующая ошибка: malloc(): memory corruption. 
-	ХЗ почему*/
 	free(buff);  
 	return mi;
 }
@@ -74,9 +71,9 @@ matr get_ms(matr *mi) {
 	char is_ONE=0, is_M_ONE=0;
 	int dbl;
 	matr ms;
-	ms.a=calloc(y,sizeof(char));
-	for(i=0;i<y;i++)
-		ms.a[i]=0;/*TODO Возможно здесь косяк: проблема в инициализации нулями*/
+	ms.a=calloc(x,sizeof(char));
+	for(i=0;i<x;i++)
+		ms.a[i]=0;
 	ms.x=ms.y=mi->x;
 	for(i=0;i<y;i++) {
 		for(j=0, ji=x-1;j<x;j++, ji--) {
@@ -114,7 +111,7 @@ matr get_ms(matr *mi) {
 }
 
 int write_matr(matr *in, char *file_out) {
-	FILE *out=fopen(file_out, "wb");
+	FILE *out=fopen(file_out, "w");
 	fwrite(in->a,sizeof(int),in->y,out);
 	fclose(out);
 	return 0;
