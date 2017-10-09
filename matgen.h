@@ -31,9 +31,9 @@ int create_inc_matr(char *file, int x, int y) {
 			fprintf(in, "%d", buff[i][j]);
 		fprintf(in, "\n");
 	}
-	for(i=0;i<y;i++)
+	for(i=0;i<4;i++)
 		free(buff[i]);
-	fclose(in);
+	//fclose(in);
 	return 0;
 }
 

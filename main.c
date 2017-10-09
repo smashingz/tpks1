@@ -9,7 +9,7 @@ typedef struct {
 	unsigned int quiet: 1;
 } flags;
 
-void parse_arg(int ac, char **av, flags *f, char *file, int *x, int *y);
+void parse_arg(int ac, char **av, flags *f, char **file, int *x, int *y);
 void print_help();
 
 int main(int argc, char **argv) {
@@ -17,12 +17,12 @@ int main(int argc, char **argv) {
 	f.random=f.quiet=0;
 	matr mi, ms;
 	int x,y;
-	char *infile, *mi_outfile, *ms_outfile;
+	char *infile="", *mi_outfile, *ms_outfile;
 	if(argc==1) {
 		print_help();
 		exit(0);
 	}
-	parse_arg(argc, argv, &f, infile, &x, &y);
+	parse_arg(argc, argv, &f, &infile, &x, &y);
 	mi_outfile=malloc(strlen(infile));
 	ms_outfile=malloc(strlen(infile));
 	strcpy(mi_outfile, infile);
@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
-void parse_arg(int ac, char **av, flags *f, char *file, int *x, int *y) {
+void parse_arg(int ac, char **av, flags *f, char **file, int *x, int *y) {
 	int i=0, j=0;
 	for(i=1;i<ac;i++)
 		if(av[i][0]=='-')
@@ -69,7 +69,9 @@ void parse_arg(int ac, char **av, flags *f, char *file, int *x, int *y) {
 					break;
 				}	
 		else {
-			file=av[i];
+			*file=av[i];
+			/*file=calloc(strlen(av[i]), sizeof(char));
+			strcpy(file, av[i]);	*/
 			if(!isdigit(*av[i+1])) {
 				printf("Неправильно введен параметр х.\n");
 				exit(1);
