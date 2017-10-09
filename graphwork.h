@@ -59,7 +59,7 @@ matr read_mi(char *file_in) {
 			}
 		}
 	fclose(in);
-	free(buff);  
+	//free(buff);  
 	return mi;
 }
 
@@ -111,8 +111,17 @@ matr get_ms(matr *mi) {
 }
 
 int write_matr(matr *in, char *file_out) {
-	FILE *out=fopen(file_out, "w");
-	fwrite(in->a,sizeof(int),in->y,out);
+	int size=in->y;
+	int *b;
+	int i;
+	if(!(b=calloc(size, sizeof(int)))) {
+		printf("Не удалось выделить память\n");
+		exit(1);
+	}
+	for(i=0;i<in->y;i++)
+		b[i]=in->a[i];
+	FILE *out=fopen(file_out, "wb");
+	fwrite(b,sizeof(int),in->y,out);
 	fclose(out);
 	return 0;
 }
