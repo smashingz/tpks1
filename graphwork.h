@@ -59,7 +59,7 @@ matr read_mi(char *file_in) {
 			}
 		}
 	fclose(in);
-	//free(buff);  
+	free(buff);  
 	return mi;
 }
 
